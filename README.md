@@ -27,7 +27,7 @@ Inovador\
 Analítico\
 Criativo\
 Organizado\
-Autocrítico\
+Autocrítico
 
 LinkedIn:\
 https://www.linkedin.com/in/pedrodeabn/
