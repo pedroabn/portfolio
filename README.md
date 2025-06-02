@@ -21,7 +21,7 @@ PowerBI\
 Looker Studio\
 Photoshop\
 SCRUM\
-LLM AI\
+LLM AI
 
 ## SOFT SKILLS
 Ótima comunicação e habilidades interpessoais\
