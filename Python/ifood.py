@@ -1,11 +1,4 @@
-# defs
-#def classificar_faixa_etaria(Idade):
-#    if Idade < 30:
-#        return 'Jovem'
-#    elif Idade >= 30 <= 59:
-#        return 'Adulto'
-#    else:
-#        return 'Idoso'
+
 
 ######################################################
 # Imports e df    
@@ -18,6 +11,24 @@ from datetime import datetime
 from scipy.stats import spearmanr
 from sklearn.preprocessing import LabelBinarizer
 ## defs
+def fx_etaria(Idade):
+    if Idade < 30:
+        return 'Jovem'
+    elif Idade >= 30 <= 59:
+        return 'Adulto'
+    else:
+        return 'Idoso'
+
+def renda(income):
+    if income >= 62972:
+        return "high"
+    elif 40246 < income < 62972:
+        return 'middle'
+    elif 10000 < income <= 40246:
+        return 'low'
+    else:
+        return 'poor'
+        
 def limpar_txt(serie):
     return (
         serie
@@ -38,22 +49,29 @@ def limpar_col(df):
     )
     return df
 
+def corcada(target):
+    corrs = {}
+    for col in c.columns:
+        if col != target:
+            cor = c[[col, target]].corr(method='pearson').iloc[0, 1]
+            corrs[col] = round(cor, 2)
+    return (
+        pd.DataFrame.from_dict(corrs, orient='index', columns=['correlacao']).abs().
+        sort_values(by='correlacao', ascending=False).reset_index().rename(columns={'index': 'variavel'})
+    )
 # Leitura do arquivo
+url = "https://raw.githubusercontent.com/nailson/ifood-data-business-analyst-test/master/ml_project1_data.csv"
 try:
-    df = pd.read_csv('ifood/aifu.csv')
+    df = pd.read_csv(url)
 except FileNotFoundError :
     print(f'Não encontrou o arquivo. Procurar caminho correto')        
 
-# Normalizar nomes das colunas (equivalente a clean_names do janitor)
+# Normalizar nomes das colunas
 df = limpar_col(df)
 df['marital_status'] = limpar_txt(df['marital_status'])
 df['education'] = limpar_txt(df['education'])
 # Corrigir income para numérico
 df['income'] = pd.to_numeric(df['income'], errors='coerce')
-
-# Criar colunas dummies
-df = pd.get_dummies(df, columns=['marital_status'], prefix='', prefix_sep='', dtype=int)
-df = pd.get_dummies(df, columns=['education'], prefix='', prefix_sep='', dtype=int)
 
 # Ajuste de kidhome e teenhome
 df['kidhome'] = df['kidhome'].apply(lambda x: 1 if x in [1, 2] else 0)
@@ -61,12 +79,18 @@ df['teenhome'] = df['teenhome'].apply(lambda x: 1 if x in [1, 2] else 0)
 
 # Tempo
 hoje = datetime.now()
-# Idade
+# Calcular novas colunas
 df['idade'] = hoje.year - df['year_birth']
-
-# Calcular anos desde que virou cliente
 df['dt_customer'] = pd.to_datetime(df['dt_customer'], errors='coerce')
 df['client_since'] = ((hoje - df['dt_customer']).dt.days / 365.25).astype(int)
+df['mnttotal'] =  df[['mntgoldprods', 'mntsweetproducts', "mntfishproducts","mntmeatproducts","mntfruits","mntwines"]].sum()
+df['renda'] = df['income'].apply(renda)
+
+# Criar colunas dummies
+df = pd.get_dummies(df, columns=['marital_status'], prefix='', prefix_sep='', dtype=int)
+df = pd.get_dummies(df, columns=['education'], prefix='', prefix_sep='', dtype=int)
+df = pd.get_dummies(df, columns=['renda'], prefix='', prefix_sep='', dtype=int)
+
 # Reordenar coluna
 df.insert(df.columns.get_loc('dt_customer') + 1, 'client_since', df.pop('client_since'))
 
@@ -84,18 +108,7 @@ cd_r.columns = ['var1', 'var2', 'valor']
 cd_r['par'] = cd_r.apply(lambda x: '_'.join(sorted([x['var1'], x['var2']])), axis=1)
 correlacoes_limpo = cd_r.drop_duplicates(subset='par').drop(columns='par')
 
-# Correlação com cada variável target
-def corcada(target):
-    corrs = {}
-    for col in c.columns:
-        if col != target:
-            cor = c[[col, target]].corr(method='pearson').iloc[0, 1]
-            corrs[col] = round(cor, 2)
-    return (
-        pd.DataFrame.from_dict(corrs, orient='index', columns=['correlacao']).abs().
-        sort_values(by='correlacao', ascending=False).reset_index().rename(columns={'index': 'variavel'})
-    )
-
+# Correlações de cada campanha
 c1 = corcada('acceptedcmp1').rename(columns={'variavel': 'acceptedcmp1'})
 c2 = corcada('acceptedcmp2').rename(columns={'variavel': 'acceptedcmp2'})
 c3 = corcada('acceptedcmp3').rename(columns={'variavel': 'acceptedcmp3'})
