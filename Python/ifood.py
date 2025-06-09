@@ -1,4 +1,5 @@
-# Imports
+
+# Imports e df    
 import pandas as pd
 import numpy as np
 import seaborn as sns
@@ -8,10 +9,10 @@ from datetime import datetime
 from functools import reduce
 from scipy import stats as sts
 ## defs
-def fx_etaria(Idade):
-    if Idade < 30:
+def fx_etaria(idade):
+    if idade < 30:
         return 'jovem'
-    elif Idade >= 30 <= 59:
+    elif  30 <= idade <= 59:
         return 'adulto'
     else:
         return 'idoso'
@@ -25,6 +26,20 @@ def renda(income):
         return 'low'
     else:
         return 'poor'
+    
+def grp_idade(idade):
+    if idade < 30:
+        return '20-29'
+    elif 30 <= idade <= 39:
+        return '30-39'
+    elif 40 <= idade <= 49:
+        return '40-49'
+    elif 50 <= idade <= 59:
+        return '50-59'
+    elif 60 <= idade <= 70:
+        return '60-70'
+    else:
+        return '70+'
 
 def limpar_txt(serie):
     return (
@@ -86,6 +101,7 @@ df['client_since'] = ((hoje - df['dt_customer']).dt.days / 365.25).astype(int)
 df['mnttotal'] =  df[['mntgoldprods', 'mntsweetproducts', "mntfishproducts","mntmeatproducts","mntfruits","mntwines"]].sum(axis=1)
 df['renda'] = df['income'].apply(renda)
 df['fx_etaria'] = df['idade'].apply(fx_etaria)
+df["grp_idade"] = df['idade'].apply(grp_idade)
 
 # Criar colunas dummies
 dummies = pd.get_dummies(df[['marital_status','education','renda','fx_etaria']], 
@@ -103,7 +119,7 @@ except RuntimeError:
 
 ### Correlação geral ###
 c = df.drop(columns=['marital_status', 'education', 'dt_customer', 'year_birth', 'id',
-                     'z_revenue', 'z_costcontact','renda','fx_etaria'])
+                     'z_revenue', 'z_costcontact','renda','fx_etaria',"grp_idade"])
 
 # Matriz de correlação (Spearman)
 cd = c.corr(method='spearman').round(2)
