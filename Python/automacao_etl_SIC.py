@@ -32,16 +32,10 @@ def carregar_aba(spreadsheet_id, aba):
 
 
 ids_planilhas = [
-    "1NAvzbm4q3wgomZ-PdwhzwxF05g8SwbD50-o2yoyw4jI", "1xYmgiKRGPlxb3HReUGRtfQkUXzX3hrqm7k9a3PPbAkQ",
-    "16D5pG7zPScTif5hkvJ_tFHEkZ_G4o4USSlJG-QjlxXY","1WVCSpCGL_qSB61qf_Qw_S2YeQILVEuTv8FYPfo87L_4",
-    "1Qk8ZWoE0xeQ8rMcz3HrN1D8-EuPGE9XL-IVtiU4yL34",
-    "1X2xlYKeEz1u8M6uguUCIKVucaHhyj1raDSCCfOV83Uw", "1h1T7K2m63Skfa7XbAjZvDZCardqCBTs1cSUc9ebAlCA",
-    "1Y5xFDiopRzeRrKoQpsVNMrdIy-pbI7nAzSR6wLaLBvI", "1id7sowbw3SSGnf5AhKpLxM29BuJOrhuHjzkpCgLf0dE",
-    "1E9T3sLJwNfnbcM88mD0UmluqguGbQLhMaB5uyG8U_7M", "1uABl0uv7CMgZHKcsbU4lg_Pc6vwZ-XmQGuY3aFCJIVA",
-    "1qGasW-RNViNgukVG4dg0C9rJulP0L4cz92wJWV7ghps", "1Jj3y-ywv3B72x5IqKJlZec--y-rW_eNK94TQUmmKuHo"
+    "ID1", "ID2",...
 ]
 
-planilha_opera_id = "1mKknfMIISkU6QfZpmtYiJHbPR6NQdbeXYf_GwosDbu4"
+planilha_opera_id = "ID_diferente"
 
 lista_fic = []
 lista_mic = []
