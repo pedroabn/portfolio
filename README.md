@@ -1,12 +1,12 @@
 # Currículo
 ## PROJETOS
-Os branches são os códigos dividos por linguagem. 
+Os branches são os códigos dividos por linguagem: 
 
-Começando por R, minha linguagem nativa, onde pude começar a produzir a territorialização dos dados, além de produzir dashboards com Sjinnyapp.io 
+R -  minha linguagem nativa, onde pude começar a produzir a territorialização dos dados, além de produzir dashboards com Shinnyapp.io 
 
-Segue projetos feitos em Python, sendo alguns reais e diretos do dia a dia, como outros sendo projetos externos, usando base de dados encontradas online
+Python -  sendo alguns reais e diretos do dia a dia, como outros sendo projetos externos, usando base de dados encontradas online
 
-E alguns projetos de Script feito em SQL, dentro do MySQL 
+SQL - Projetos de Script feito em SQL, dentro do MySQL 
 
 ## FORMAÇÃO  
 ### Ciência Política — Ensino superior, UFPE 
