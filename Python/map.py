@@ -1,4 +1,3 @@
-# Equivalente em Python 3.11 do trecho R fornecido
 import pandas as pd
 import numpy as np
 from Funcoes.limpeza import limpar_texto, cep_limpo, mais_visto
