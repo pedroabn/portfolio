@@ -1,6 +1,6 @@
 # Currículo
 ## PROJETOS
-Os branches são os códigos dividos por linguagem: 
+As pastas são dividos por linguagem: 
 
 R -  minha linguagem nativa, onde pude começar a produzir a territorialização dos dados, além de produzir dashboards com Shinnyapp.io 
 
