@@ -21,46 +21,11 @@ def get_ze(valor):
 
 vereadores = [
        'Aderaldo Pinto',
-       'Agora é Rubem',
-       'Alcides Teixeira Neto',
-       'Alef Collins',
-       'Professora Ana Lúcia',
-       'Carlos Muniz',
-       'Chico Kiko',
-       'Cida Pedrosa',
-       'Davi Muniz',
-       'Eduardo Mota',
-       'Eduardo Moura',
-       'Eriberto Rafael',
-       'Fabiano Ferraz',
-       'Felipe Alecrim',
-       'Felipe Francismar',
-       'Flávia de Nadegi',
-       'Fred Ferreira',
-       'Gilberto Alves',
-       'Gilson Machado Filho',
-       'Hélio Guabiraba',
-       'Júnior Bocão',
-       'Jô Cavalcanti',
-       'Zé Neto',
-       'Júnior de Cleto',
-       'Kari Santos',
-       'Liana Cirne',
-       'Luiz Eustáquio',
-       'Natália de Menudo',
-       'Osmar Ricardo',
-       'Paulo Muniz',
-       'Rinaldo Júnior',
-       'Rodrigo Coutinho',
-       'Romerinho Jatobá',
-       'Samuel Salazar',
-       'Tadeu Calheiros',
-       'Thiago Medina',
-       'Wilton Brito']
+      ...]
 
 #%% Vereadores e zonas de apoio
-votos = pd.read_excel(r'C:\Users\pedro.bastos\Documents\vscode\Cadastros\db\votoporsecao.xlsx')
-zonascru = pd.read_excel(r'C:\Users\pedro.bastos\Documents\vscode\Cadastros\db\tse.xlsx')
+votos = pd.read_excel(r'')
+zonascru = pd.read_excel(r'')
 # Limpar e manipular dados dos votos
 #Filtro para apenas os vereadores
 vset = {str(x) for x in vereadores}
@@ -112,5 +77,6 @@ idx = fsttse.groupby("CD_Local")["votos_recebidos"].idxmax()
 politica = fsttse.loc[idx].reset_index(drop=True)
 politica['latitude'] = politica['latitude'].fillna(0).astype(str).str.replace(",",".").astype(float)
 politica['longitude'] = politica['longitude'].fillna(0).astype(str).str.replace(",",".").astype(float)
+
 
 politica.to_excel('output/Vereadores_map.xlsx')
