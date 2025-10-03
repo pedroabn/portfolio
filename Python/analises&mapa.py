@@ -157,7 +157,7 @@ def to_int_or_na(x):
     except: return pd.NA
 
 #%% Base de mapas
-geo_json_data = r"C:\Users\pedro.bastos\Documents\vscode\Cadastros\jsons\bvisualizacao_fcbairro.geojson"
+geo_json_data = r""
 gdf = gpd.read_file(geo_json_data)
 gdf['EBAIRRNOMEOF'] = gdf['EBAIRRNOMEOF'].str.upper()
 gdf = gdf[["EBAIRRNOMEOF","geometry","CBAIRRCODI"]]
@@ -205,7 +205,7 @@ print('Group by por bairro/area feito')
 
 
 #%% Malha de subdivisões
-malhacrua = r"C:\Users\pedro.bastos\Documents\vscode\Cadastros\jsons\malharec.json"
+malhacrua = r""
 malha = gpd.read_file(malhacrua)
 
 malha['NM_FCU'] = malha['NM_FCU'].str.replace(r'\s+', ' ', regex=True).str.strip()
@@ -229,9 +229,9 @@ malhapa = malha.merge(gs_cad, on = 'CD_Setor', how='left')
 malhapa['inscritos'] = malha['inscritos'].fillna(0)
 # malhapa.to_excel('resultados/CadastroPorArea_ps.xlsx', index = False)
 #%% Carregando as Escolas e matrículas
-esc = r"C:\Users\pedro.bastos\Documents\vscode\Cadastros\db\escolas.csv"
-mat = r"C:\Users\pedro.bastos\Documents\vscode\Cadastros\db\matriculas.csv"
-und = r"C:\Users\pedro.bastos\Documents\vscode\Cadastros\db\unidades.csv"
+esc = r""
+mat = r""
+und = r""
 escolas = pd.read_csv(esc, sep = ';')
 matriculas = pd.read_csv(mat)
 unidades = pd.read_csv(und, sep = ';')
@@ -292,7 +292,7 @@ gs_e = escpl.groupby(['CD_Setor']).agg(
     ).reset_index()
 #%%Pontos de cultura
 #Carregando os pontos de cultura
-pthmpc = r"C:\Users\pedro.bastos\Documents\vscode\Cadastros\db\mapacultural.xlsx"
+pthmpc = r""
 pont_cult = pd.read_excel(pthmpc)
 
 #Filtrando para pontos de cultura
@@ -321,7 +321,7 @@ gs_ptc = pont_cult.groupby(['CD_Setor']).agg(
     ).reset_index()
 
 #%%Praças e parques
-pracaruanua = r"C:\Users\pedro.bastos\Documents\vscode\Cadastros\db\parquespracas.csv"
+pracaruanua = r""
 
 pracarua = pd.read_csv(pracaruanua, delimiter=";")
 pracarua['CD_Setor'] = get_minisetor(pracarua,malha)
@@ -340,7 +340,7 @@ gs_prc = (pracarua.groupby(["CD_Setor"])
 gs_prc["qtd_Pracas"] = gs_prc["qtd_Pracas"].astype(int)
 
 #%%Equipamentos
-eqp = r"C:\Users\pedro.bastos\Documents\vscode\Cadastros\db\equipamentos.xlsx"
+eqp = r""
 
 compaz = pd.read_excel(eqp, sheet_name="compaz")
 compaz = compaz.rename(columns={'bairro':"EBAIRRNOMEOF"})
@@ -383,7 +383,7 @@ gs_equipub = gs_ep.merge(gs_cp, on="CD_Setor", how="outer") \
                   .merge(gs_cr, on="CD_Setor", how="outer")
 gs_equipub = gs_equipub.fillna(0)
 #%% IBGE
-casacru =  r"C:\Users\pedro.bastos\Documents\vscode\Cadastros\jsons\censobairro.json"
+casacru =  r""
 casa = gpd.read_file(casacru)
 casa = casa.rename(columns={"NM_BAIRRO":'EBAIRRNOMEOF',
                               'v0001':'total_pessoas', 
@@ -394,8 +394,8 @@ casa['EBAIRRNOMEOF'] = casa['EBAIRRNOMEOF'].astype(str).str.upper()
 #Por setor
 
 #%% Cor_Raça
-coracacru = r"C:\Users\pedro.bastos\Documents\vscode\Cadastros\db\cor-raca.xlsx"
-coracascru = r"C:\Users\pedro.bastos\Documents\vscode\Cadastros\db\coracasetor.xlsx"
+coracacru = r""
+coracascru = r""
 print('#1')
 cr = pd.read_excel(coracacru)
 # Mantendo as de recife
@@ -447,8 +447,8 @@ cors['pct_pretosepardos'] = ((cors['Preto'] + cors['Pardo']) / cors['Total']).ro
 
 cr_s = cors.drop(columns=['Criança','Total'])
 #%% Demografico
-democru = r"C:\Users\pedro.bastos\Documents\vscode\Cadastros\db\demografia.xlsx"
-democrus = r"C:\Users\pedro.bastos\Documents\vscode\Cadastros\db\demosetor.xlsx"
+democru = r""
+democrus = r""
 #Demo
 dm = pd.read_excel(democru)
 dm = dm.drop(columns= demodel)
@@ -496,7 +496,7 @@ gb_demo['EBAIRRNOMEOF'] = gb_demo['EBAIRRNOMEOF'].str.upper().replace('COHAB', '
 gs_demo = cr_s.merge(demo_s, on = 'CD_Setor', how='left')
 gs_demo['CD_Setor'] = gs_demo['CD_Setor'].astype(str)
 #%% Empresas ativas
-emp = pd.read_csv(r'C:\Users\pedro.bastos\Documents\vscode\Cadastros\db\empresas.csv', delimiter = ";")
+emp = pd.read_csv(r'', delimiter = ";")
 emp = emp.rename(columns={"cod_bairro":"CBAIRRCODI"})
 empcult = (emp[~emp['desc_atividade']
                .isin(empresasdel)]
@@ -510,7 +510,7 @@ gs_emp = empcult.groupby('CD_Setor').size().reset_index(name = 'qtd_empresas_tot
 #gb_empportp.to_excel('resultados/empresas-por-bairro.xlsx',index=False)
 
 #%% Agenda cultural
-evento = r'C:\Users\pedro.bastos\Documents\vscode\Cadastros\db\eventos.xlsx'
+evento = r''
 agenda = pd.read_excel(evento)
 agenda[['Local', 'Logradouro']] = agenda['Endereço'].str.split('-', n = 1, expand=True)
 agenda['Logradouro'] = agenda['Logradouro'].str.replace(r'^.*?- ', '', regex=True)
@@ -584,7 +584,7 @@ pb_demo["cluster"] = np.select(
         "UF_infl",
         "BV_infl"],
         default="Fora de núcleos")
-pb_demo.to_excel("resultados/Infopbruto.xlsx", sheet_name='pb', index=False)
+#pb_demo.to_excel("", sheet_name='pb', index=False)
 pb_demo = gpd.GeoDataFrame(pb_demo, geometry="geometry", crs="EPSG:4326")
 #%% Group_by por setor
 # # Primeiro a relação com as empresas, já que a base de dados serão conectados por uma coluna que será retirada após o merge
@@ -609,8 +609,8 @@ ps_demo = ps_equippub.merge(gs_demo, on = "CD_Setor", how = 'left')
 ps_demo = ps_demo.fillna(0)
 ps_demo = gpd.GeoDataFrame(ps_demo, geometry="geometry", crs="EPSG:4326")
 #%% Vereadores e zonas de apoio
-votos = pd.read_excel(r'C:\Users\pedro.bastos\Documents\vscode\Cadastros\db\votoporsecao.xlsx')
-zonascru = pd.read_excel(r'C:\Users\pedro.bastos\Documents\vscode\Cadastros\db\tse.xlsx')
+votos = pd.read_excel(r'')
+zonascru = pd.read_excel(r'')
 # Limpar e manipular dados dos votos
 #Filtro para apenas os vereadores
 vset = {str(x) for x in vereadores}
@@ -1136,5 +1136,6 @@ GroupedLayerControl(exclusive_groups= False,
 # Salva o mapa
 #m
 m.save("mapa/mapateste.html")
+
 
 #%% Teste de codigos
