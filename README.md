@@ -17,7 +17,7 @@ SETEMBRO DE 2024 - JANEIRO DE 2026 \
 Especialização em Marketing, com atividades práticas sobre o dia a dia no marketing comercial. Em conjunto com as atividades práticas, elaborei projetos para empresas e apresentações para melhor entendimento teórico.
 ### Curso NeXT— Cesar School
 ABRIL DE 2025 - OUTUBRO  DE 2025\
-Link para GitHub do projeto final: https://github.com/marthalacerda/cnpj-scan-front-grupo3.git
+Link para GitHub do projeto final: https://github.com/marthalacerda/cnpj-scan-front-grupo3.git \
 Especialização em programação em Python e SQL, com foco no desenvolvimento da lógica de programação, desenvolvimento de sistemas, com foco em visualização e ciência de dados.
 
 ## HARD SKILLS
